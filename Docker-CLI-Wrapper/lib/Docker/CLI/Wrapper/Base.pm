@@ -2,9 +2,11 @@ package Docker::CLI::Wrapper::Base;
 
 use strict;
 use warnings;
+use 5.014;
+use autodie;
 
 use Moo;
-use Path::Tiny qw/ path tempdir tempfile cwd /;
+use Path::Tiny qw/ path /;
 
 has 'docker_cmd_line_prefix' =>
     ( is => 'ro', lazy => 1, builder => 'calc_docker_cmd_line_prefix' );
