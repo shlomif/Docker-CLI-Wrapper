@@ -1,4 +1,7 @@
 Revision history for Docker-CLI-Wrapper
 
+0.0.2       2020-04-04
+    - Add lib/Docker/CLI/Wrapper/Container.pm
+
 0.0.1       2020-04-03
     - First version, released on an unsuspecting world
