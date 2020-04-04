@@ -22,6 +22,25 @@ sub clean_up
 
     return;
 }
+
+sub run_docker
+{
+    my ($self) = @_;
+
+    $self->docker( { cmd => [ 'pull', $self->sys() ] } );
+    $self->docker(
+        {
+            cmd => [
+                'run',              "-t",
+                "-d",               "--name",
+                $self->container(), $self->sys(),
+            ]
+        }
+    );
+
+    return;
+}
+
 1;
 
 __END__
@@ -53,6 +72,12 @@ A string.
 The container name / ID.
 
 A string.
+
+=head2 $obj->run_docker()
+
+Get the container to run (after pulling its system).
+
+[Added in version 0.0.3.]
 
 =head2 $obj->clean_up()
 
