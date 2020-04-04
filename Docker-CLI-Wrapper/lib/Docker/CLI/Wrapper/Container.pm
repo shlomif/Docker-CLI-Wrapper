@@ -6,13 +6,22 @@ use 5.014;
 use autodie;
 
 use Moo;
-use Path::Tiny qw/ path /;
 
 extends('Docker::CLI::Wrapper::Base');
 
 has 'container' => ( is => 'ro', required => 1, );
 has 'sys'       => ( is => 'ro', required => 1, );
 
+sub clean_up
+{
+    my ($self) = @_;
+
+    eval { $self->docker( { cmd => [ 'stop', $self->container(), ] } ); };
+
+    eval { $self->docker( { cmd => [ 'rm', $self->container(), ] } ); };
+
+    return;
+}
 1;
 
 __END__
@@ -44,6 +53,10 @@ A string.
 The container name / ID.
 
 A string.
+
+=head2 $obj->clean_up()
+
+Stops and deletes the container.
 
 =head2 $obj->do_system({ cmd => [@CMD]});
 
