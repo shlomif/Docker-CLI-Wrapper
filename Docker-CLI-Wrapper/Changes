@@ -1,5 +1,8 @@
 Revision history for Docker-CLI-Wrapper
 
+0.0.4       2020-04-04
+    - Add Container->exe and Container->exe_bash_code .
+
 0.0.3       2020-04-04
     - Add Container->run_docker().
 
