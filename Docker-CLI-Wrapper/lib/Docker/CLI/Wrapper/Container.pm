@@ -41,6 +41,31 @@ sub run_docker
     return;
 }
 
+sub exe
+{
+    my ( $self, $args ) = @_;
+
+    my @user;
+    if ( exists $args->{user} )
+    {
+        push @user, ( '--user', $args->{user} );
+    }
+
+    return $self->docker(
+        { cmd => [ 'exec', @user, $self->container(), @{ $args->{cmd} } ] } );
+}
+
+sub exe_bash_code
+{
+    my ( $self, $args ) = @_;
+
+    return $self->exe(
+        {
+            %$args, cmd => [ 'bash', '-c', $args->{code}, ],
+        }
+    );
+}
+
 1;
 
 __END__
@@ -82,6 +107,19 @@ Get the container to run (after pulling its system).
 =head2 $obj->clean_up()
 
 Stops and deletes the container.
+
+=head2 $obj->exe({ cmd => [@CMD], })
+
+"docker exec"s the @CMD on the container: one can specify
+an optional 'user' username.
+
+[Added in version 0.0.4.]
+
+=head2 $obj->exe_bash_code({code => $CODE})
+
+Runs $CODE using C<'bash -c'> inside the container.
+
+[Added in version 0.0.4.]
 
 =head2 $obj->do_system({ cmd => [@CMD]});
 
