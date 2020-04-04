@@ -10,7 +10,8 @@ use Path::Tiny qw/ path /;
 
 extends('Docker::CLI::Wrapper::Base');
 
-has 'sys' => ( is => 'ro', required => 1, );
+has 'container' => ( is => 'ro', required => 1, );
+has 'sys'       => ( is => 'ro', required => 1, );
 
 1;
 
@@ -26,6 +27,7 @@ Docker::CLI::Wrapper::Container - manage a container.
 
     my $obj = Docker::CLI::Wrapper::Container->new(
         {
+            container => "my-docker-container",
             sys => 'debian:sid',
         }
     );
@@ -36,6 +38,13 @@ Docker::CLI::Wrapper::Container - manage a container.
 
 The desired operating system / docker image to use for the container.
 A string.
+
+=head2 $obj->container()
+
+The container name / ID.
+
+A string.
+
 =head2 $obj->do_system({ cmd => [@CMD]});
 
 Sugar for system(@CMD) - prints and dies on error.
