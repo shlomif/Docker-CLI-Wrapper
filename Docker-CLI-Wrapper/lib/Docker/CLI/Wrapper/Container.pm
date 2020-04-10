@@ -84,6 +84,10 @@ Docker::CLI::Wrapper::Container - manage a container.
             sys => 'debian:sid',
         }
     );
+    $obj->clean_up();
+    $obj->run_docker();
+    $obj->exe_bash_code({code => qq#set -e -x; printf "%s\\n" "Hello world!"});
+    $obj->clean_up();
 
 =head1 METHODS
 
