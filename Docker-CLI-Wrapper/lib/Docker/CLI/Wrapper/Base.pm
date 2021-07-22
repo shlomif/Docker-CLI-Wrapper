@@ -64,6 +64,20 @@ __END__
 
 Docker::CLI::Wrapper::Base - base class.
 
+=head1 SYNOPSIS
+
+    use Docker::CLI::Wrapper::Base;
+
+    my $obj = Docker::CLI::Wrapper::Base->new();
+
+    $obj->do_system(
+        {
+            cmd => [
+                qw/ls -l/,
+            ],
+        }
+    );
+
 =head1 METHODS
 
 =head2 $obj->do_system({ cmd => [@CMD]});
