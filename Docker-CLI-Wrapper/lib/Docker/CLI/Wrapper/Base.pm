@@ -48,13 +48,21 @@ sub calc_docker_cmd_line_prefix
     return ['docker'];
 }
 
+sub calc_docker_cmd
+{
+    my ( $self, $args ) = @_;
+
+    my $cmd = $args->{cmd};
+    return { docker_cmd => [ @{ $self->docker_cmd_line_prefix }, @$cmd, ], };
+}
+
 sub docker
 {
     my ( $self, $args ) = @_;
 
     my $cmd = $args->{cmd};
     return $self->do_system(
-        { %$args, cmd => [ @{ $self->docker_cmd_line_prefix }, @$cmd, ], } );
+        { %$args, cmd => $self->calc_docker_cmd( $args, )->{'docker_cmd'}, } );
 }
 1;
 
@@ -87,6 +95,10 @@ Sugar for system(@CMD) - prints and dies on error.
 =head2 $obj->docker({ cmd => [@CMD]});
 
 Runs docker using the args in @CMD, using do_system.
+
+=head2 $obj->calc_docker_cmd({ cmd => [@CMD]});
+
+Calculates the docker command and returns it (without executing it).
 
 =head2 $obj->calc_docker_cmd_line_prefix()
 
