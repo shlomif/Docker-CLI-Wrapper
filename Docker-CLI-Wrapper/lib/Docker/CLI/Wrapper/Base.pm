@@ -64,6 +64,7 @@ sub docker
     return $self->do_system(
         { %$args, cmd => $self->calc_docker_cmd( $args, )->{'docker_cmd'}, } );
 }
+
 1;
 
 __END__
@@ -99,6 +100,8 @@ Runs docker using the args in @CMD, using do_system.
 =head2 $obj->calc_docker_cmd({ cmd => [@CMD]});
 
 Calculates the docker command and returns it (without executing it).
+
+[Added in version 0.0.7.]
 
 =head2 $obj->calc_docker_cmd_line_prefix()
 
